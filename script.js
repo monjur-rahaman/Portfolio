@@ -97,6 +97,8 @@ const revealTargets = document.querySelectorAll(
     ".about, .container1, .container2, .row, .prj-list div, .contact-text"
 );
 
+const isMobileView = window.matchMedia("(max-width: 700px)").matches;
+
 const revealObserver = new IntersectionObserver(
     (entries, observer) => {
         entries.forEach((entry) => {
@@ -106,7 +108,10 @@ const revealObserver = new IntersectionObserver(
             }
         });
     },
-    { threshold: 0.18 }
+    {
+        threshold: isMobileView ? 0.05 : 0.18,
+        rootMargin: isMobileView ? "0px 0px -8% 0px" : "0px"
+    }
 );
 
 revealTargets.forEach((element) => {
